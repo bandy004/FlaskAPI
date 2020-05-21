@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>a12eb969-eeac-4073-9f89-92a849f53dff</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>testApp.py</StartupFile>
+    <StartupFile>driverapp.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,7 +25,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="taskapp.py" />
-    <Compile Include="testApp.py">
+    <Compile Include="driverapp.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
