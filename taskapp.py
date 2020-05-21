@@ -9,12 +9,11 @@ class TaskApp():
     assignments = []
 
     def __init__(self,name):
-        self.app = Flask(name)
+        self.app = Flask(name, static_url_path='', static_folder='/')
 
         @self.app.route("/")
-        def display():
-            print(request.method, request.args)
-            return  "Hello World"
+        def show():
+           return  self.app.send_static_file('index.html')
 
         @self.app.route("/adduser")
         def addUser():
