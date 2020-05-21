@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>a12eb969-eeac-4073-9f89-92a849f53dff</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>driverapp.py</StartupFile>
+    <StartupFile>backend\driverapp.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,19 +21,24 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="configurator.py">
+    <Compile Include="backend\configurator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="taskapp.py" />
-    <Compile Include="driverapp.py">
+    <Compile Include="backend\taskapp.py" />
+    <Compile Include="backend\driverapp.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.html" />
+    <Content Include="dist\axios.min.js" />
+    <Content Include="dist\vue.min.js" />
+    <Content Include="frontend\index.html" />
+    <Content Include="frontend\vueapp.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="dist\" />
+    <Folder Include="frontend\" />
+    <Folder Include="backend\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

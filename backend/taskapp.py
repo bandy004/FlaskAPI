@@ -9,7 +9,7 @@ class TaskApp():
     assignments = []
 
     def __init__(self,name):
-        self.app = Flask(name, static_url_path='', static_folder='/')
+        self.app = Flask(name, static_url_path='', static_folder='../frontend')
 
         @self.app.route("/")
         def show():

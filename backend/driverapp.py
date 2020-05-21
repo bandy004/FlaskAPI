@@ -1,5 +1,5 @@
 
-from taskapp import TaskApp
+from backend.taskapp import TaskApp
 
 app = TaskApp(__name__)
 
