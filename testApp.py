@@ -1,5 +1,5 @@
 
-from model import TaskApp
+from taskapp import TaskApp
 
 app = TaskApp(__name__)
 

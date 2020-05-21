@@ -24,7 +24,7 @@
     <Compile Include="configurator.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="model.py" />
+    <Compile Include="taskapp.py" />
     <Compile Include="testApp.py">
       <SubType>Code</SubType>
     </Compile>
