@@ -33,10 +33,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="frontend\public\dist\decision.js" />
-    <Content Include="frontend\public\dist\skills.js" />
-    <Content Include="frontend\public\dist\processors.js" />
-    <Content Include="frontend\public\dist\tasks.js" />
+    <Content Include="frontend\public\scripts\decision.js" />
+    <Content Include="frontend\public\scripts\skills.js" />
+    <Content Include="frontend\public\scripts\processors.js" />
+    <Content Include="frontend\public\scripts\tasks.js" />
     <Content Include="frontend\public\managetasks.html" />
     <Content Include="frontend\public\index - Copy.html" />
     <Content Include="frontend\public\index.html" />
@@ -45,7 +45,7 @@
     <Content Include="frontend\public\manageskill.html" />
     <Content Include="frontend\public\dist\axios.min.js" />
     <Content Include="frontend\public\dist\vue.min.js" />
-    <Content Include="frontend\public\dist\vueapp.js" />
+    <Content Include="frontend\public\scripts\vueapp.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="frontend\public\dist\" />
@@ -53,6 +53,7 @@
     <Folder Include="backend\" />
     <Folder Include="backend\files\" />
     <Folder Include="frontend\public\" />
+    <Folder Include="frontend\public\scripts\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
