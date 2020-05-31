@@ -28,17 +28,31 @@
     <Compile Include="backend\driverapp.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="frontend\server.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dist\axios.min.js" />
-    <Content Include="dist\vue.min.js" />
-    <Content Include="frontend\index.html" />
-    <Content Include="frontend\vueapp.js" />
+    <Content Include="frontend\public\dist\decision.js" />
+    <Content Include="frontend\public\dist\skills.js" />
+    <Content Include="frontend\public\dist\processors.js" />
+    <Content Include="frontend\public\dist\tasks.js" />
+    <Content Include="frontend\public\managetasks.html" />
+    <Content Include="frontend\public\index - Copy.html" />
+    <Content Include="frontend\public\index.html" />
+    <Content Include="frontend\public\decision.html" />
+    <Content Include="frontend\public\manageprocessor.html" />
+    <Content Include="frontend\public\manageskill.html" />
+    <Content Include="frontend\public\dist\axios.min.js" />
+    <Content Include="frontend\public\dist\vue.min.js" />
+    <Content Include="frontend\public\dist\vueapp.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="dist\" />
+    <Folder Include="frontend\public\dist\" />
     <Folder Include="frontend\" />
     <Folder Include="backend\" />
+    <Folder Include="backend\files\" />
+    <Folder Include="frontend\public\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

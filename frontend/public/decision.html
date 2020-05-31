@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>DO.IT</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="icon" href="../img/DoIt.png" sizes="16x16">
+</head>
+<body>
+    <div id="app">
+        <v-app id="inspire">
+            <v-app id="inspire">
+                <v-navigation-drawer v-model="drawer"
+                                     app>
+                    <v-list dense>
+                        <v-list-item link href="./tasks">
+                            <v-list-item-action>
+                                <v-icon>mdi-home</v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                                <v-list-item-title>Tasks</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item link href="./skills">
+                            <v-list-item-action>
+                                <v-icon>mdi-email</v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                                <v-list-item-title>Skills</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item link href="./processors">
+                            <v-list-item-action>
+                                <v-icon>mdi-email</v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                                <v-list-item-title>Processors</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item link href="./decide">
+                            <v-list-item-action>
+                                <v-icon>mdi-email</v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                                <v-list-item-title>Assignments</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item link href="./">
+                            <v-list-item-action>
+                                <v-icon>mdi-email</v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                                <v-list-item-title>Logout</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </v-navigation-drawer>
+
+                <v-app-bar app
+                           color="indigo"
+                           dark>
+                    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                    <v-toolbar-title> {{title}} </v-toolbar-title>
+                    <v-spacer></v-spacer>
+                    <v-btn icon>
+                        <v-avatar>
+                            <img src="../img/DoIt.png">
+                        </v-avatar>
+                    </v-btn>
+                </v-app-bar>
+
+                <v-content>
+                    <v-container>
+                        <v-app id="inspire">
+                            <v-row>
+                                <v-col>
+                                    <v-btn color="primary" @click="reset()">Reset</v-btn>
+                                    <v-data-table :headers="taskHeader"
+                                                  :items="tasks"
+                                                  sort-by="name"
+                                                  item-key="name"
+                                                  show-select
+                                                  :single-select="true"
+                                                  class="elevation-2">
+                                        <template v-slot:top>
+                                            <v-toolbar flat color="white">
+                                                <v-toolbar-title>Tasks</v-toolbar-title>
+                                                <v-divider class="mx-4"
+                                                           inset
+                                                           vertical></v-divider>
+                                                <v-spacer></v-spacer>
+                                                <v-dialog v-model="dialogTask" max-width="500px">
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-btn color="primary" dark class="mb-2" v-on="on">New Task</v-btn>
+                                                    </template>
+                                                    <v-card>
+                                                        <v-card-title>
+                                                            <span class="headline">{{ formTitleTask }}</span>
+                                                        </v-card-title>
+
+                                                        <v-card-text>
+                                                            <v-container>
+                                                                <v-row>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="selectedTask.name" label="Task name"></v-text-field>
+                                                                    </v-col>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <!--<v-text-field v-model="selectedTask.duedate" label="Due date"></v-text-field>-->
+                                                                        <v-date-picker v-model="selectedTask.duedate" label="Due date"></v-date-picker>
+                                                                    </v-col>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="selectedTask.duration" label="Duration"></v-text-field>
+                                                                    </v-col>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="selectedTask.location" label="Location"></v-text-field>
+                                                                    </v-col>
+                                                                </v-row>
+                                                            </v-container>
+                                                        </v-card-text>
+
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn color="blue darken-1" text @click="closeTask">Cancel</v-btn>
+                                                            <v-btn color="blue darken-1" text @click="saveTask">Save</v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
+                                            </v-toolbar>
+                                        </template>
+                                        <template v-slot:item.actions="{ item }">
+                                            <v-icon small
+                                                    class="mr-2"
+                                                    @click="editTask(item)">
+                                                mdi-pencil
+                                            </v-icon>
+                                            <v-icon small
+                                                    @click="">
+                                                mdi-delete
+                                            </v-icon>
+                                        </template>
+                                        <!--<template v-slot:no-data>
+                            <v-btn color="primary" @click="">Reset</v-btn>
+                        </template>-->
+                                    </v-data-table>
+                                </v-col>
+                            </v-row>
+
+                            <v-row>
+                                <v-col>
+                                    <v-data-table :headers="userHeader"
+                                                  :items="users"
+                                                  sort-by="name"
+                                                  class="elevation-1">
+                                        <template v-slot:top>
+                                            <v-toolbar flat color="white">
+                                                <v-toolbar-title>Users</v-toolbar-title>
+                                                <v-divider class="mx-4"
+                                                           inset
+                                                           vertical></v-divider>
+                                                <v-spacer></v-spacer>
+                                                <v-dialog v-model="dialogUser" max-width="500px">
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-btn color="primary" dark class="mb-2" v-on="on">New User</v-btn>
+                                                    </template>
+                                                    <v-card>
+                                                        <v-card-title>
+                                                            <span class="headline">{{ formTitleUser }}</span>
+                                                        </v-card-title>
+
+                                                        <v-card-text>
+                                                            <v-container>
+                                                                <v-row>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="selectedUser.name" label="User name"></v-text-field>
+                                                                    </v-col>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="selectedUser.email" label="Email"></v-text-field>
+                                                                    </v-col>
+                                                                </v-row>
+                                                            </v-container>
+                                                        </v-card-text>
+
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn color="blue darken-1" text @click="closeUser">Cancel</v-btn>
+                                                            <v-btn color="blue darken-1" text @click="saveUser">Save</v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
+                                            </v-toolbar>
+                                        </template>
+                                        <template v-slot:item.actions="{ item }">
+                                            <v-icon small
+                                                    class="mr-2"
+                                                    @click="editUser(item)">
+                                                mdi-pencil
+                                            </v-icon>
+                                            <v-icon small
+                                                    @click="">
+                                                mdi-delete
+                                            </v-icon>
+                                        </template>
+                                        <!--<template v-slot:no-data>
+                            <v-btn color="primary" @click="">Reset</v-btn>
+                        </template>-->
+                                    </v-data-table>
+                                </v-col>
+                                <v-col>
+                                    <v-data-table :headers="assignmentHeader"
+                                                  :items="assignments"
+                                                  sort-by="task"
+                                                  class="elevation-1">
+                                        <template v-slot:top>
+                                            <v-toolbar flat color="white">
+                                                <v-toolbar-title>Assignments</v-toolbar-title>
+                                                <v-divider class="mx-4"
+                                                           inset
+                                                           vertical></v-divider>
+                                                <v-spacer></v-spacer>
+                                                <v-dialog v-model="dialogAssign" max-width="500px">
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-btn color="primary" dark class="mb-2" v-on="on">New Assignments</v-btn>
+                                                    </template>
+                                                    <v-card>
+                                                        <v-card-title>
+                                                            <span class="headline">{{ formTitleAssign }}</span>
+                                                        </v-card-title>
+
+                                                        <v-card-text>
+                                                            <v-container>
+                                                                <v-row>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="selectedAssign.task" label="Task"></v-text-field>
+                                                                    </v-col>
+                                                                    <v-col cols="12" sm="6" md="4">
+                                                                        <v-text-field v-model="selectedAssign.user" label="User"></v-text-field>
+                                                                    </v-col>
+                                                                </v-row>
+                                                            </v-container>
+                                                        </v-card-text>
+
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn color="blue darken-1" text @click="closeAssign">Cancel</v-btn>
+                                                            <v-btn color="blue darken-1" text @click="saveAssign">Save</v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
+                                            </v-toolbar>
+                                        </template>
+                                        <template v-slot:item.actions="{ item }">
+                                            <v-icon small
+                                                    class="mr-2"
+                                                    @click="editAssign(item)">
+                                                mdi-pencil
+                                            </v-icon>
+                                            <v-icon small
+                                                    @click="">
+                                                mdi-delete
+                                            </v-icon>
+                                        </template>
+                                    </v-data-table>
+                                </v-col>
+                            </v-row>
+                        </v-app>
+                    </v-container>
+                </v-content>
+                <v-footer color="indigo"
+                          app>
+                    <span class="white--text">&copy; 2019</span>
+                </v-footer>
+            </v-app>
+        </v-app>
+    </div>
+
+    <!--<script src="../dist/vue.min.js"></script> -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="../dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script ssrc="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+    <script src="../dist/decision.js"></script>
+
+</body>
+
+</html>
