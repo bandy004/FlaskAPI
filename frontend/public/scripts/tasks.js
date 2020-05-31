@@ -69,7 +69,7 @@ var vvue = new Vue({
               }).catch(function (error) {
                   console.log(error);
               });
-        }
+        },
         loadTasks() {
             let self = this;
             axios.get(taskUrl).

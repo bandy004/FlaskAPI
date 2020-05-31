@@ -69,7 +69,7 @@ class TaskApp():
     #    taskSkills:[
     #        {skill}
     #        ]
-    taskHeader: [
+    taskHeader = [
         { 'text': 'ID', 'value':'id', 'align': 'start'},
         { 'text': 'Name', 'value': 'name' },
         { 'text': 'Date', 'value': 'duedate' },
@@ -82,7 +82,7 @@ class TaskApp():
         { 'text': '', 'value': 'actions' },
     ]
 
-    emptyTask:{
+    emptyTask = {
         'id': '',
         'name': '',
         'date': '',
