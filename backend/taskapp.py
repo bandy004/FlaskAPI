@@ -1,5 +1,6 @@
 
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, json
+import copy
 
 class TaskApp():
 
@@ -7,7 +8,7 @@ class TaskApp():
     #    name: string,
     #    code: string
     #    }
-    skillsHeader = [
+    skillHeader = [
         { 'text':"Name", 'value':'name', 'align':'start'},
         { 'text':"Code", 'value':'code'},
         { 'text': '', 'value':'actions'},
@@ -154,6 +155,10 @@ class TaskApp():
         def getSkills():
             return jsonify(self.skills)
 
+        @self.app.route("/getskillheader")
+        def getSkillHeader():
+            return jsonify(self.skillHeader)
+
         @self.app.route("/getemptyskill")
         def getEmptySkill():
             return jsonify(self.emptySkill)
@@ -180,9 +185,18 @@ class TaskApp():
 
         @self.app.route("/addtaskskill")
         def addTaskSkill():
+            jsonf = request.get_json()
+            print("[JSON]", jsonf)
+            print("[ARGS]", request.args)
+            taskskill = json.loads(request.args['0'])
+            print("[ID]", taskskill['id'])
+            print("[SKILLS]", taskskill['taskSkills'])
+
             for t in self.tasks:
-                if(t['id'] == request.args['id']):
-                    t['taskSkills'].append(request.args['taskSkill'])
+                if(t['id'] == taskskill['id']):
+                    for s in taskskill['taskSkills']:
+                        t['taskSkills'].append(s)
+                        print(t)
                     break
             return getTasks()
 
@@ -200,7 +214,10 @@ class TaskApp():
 
         @self.app.route("/addtask")
         def addTask():
-            self.tasks.append(request.args)
+            self.tasks.append(json.loads(request.args['0']))
+            t = json.loads(request.args['0'])
+            print("[NEW-Task]", request.args['0'])
+            print("[NEW-Task]", t)
             return getTasks()
 
         @self.app.route("/assign")
