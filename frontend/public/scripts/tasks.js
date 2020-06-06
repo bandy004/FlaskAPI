@@ -142,7 +142,7 @@ var vvue = new Vue({
 
         saveTask() {
             if (this.editTaskIndex > -1) {
-                Object.assign(ths.tasks[editTaskIndex], this.selectedTask);
+                Object.assign(ths.tasks[this.editTaskIndex], this.selectedTask);
             }
             else {
                 this.addTask();

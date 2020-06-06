@@ -204,7 +204,7 @@ class TaskApp():
 
         @self.app.route("/adduser")
         def addUser():
-            self.users.append(request.args)
+            self.users.append(json.loads(request.args['0']))
             return getUsers()
 
         @self.app.route("/addskill")
@@ -215,9 +215,6 @@ class TaskApp():
         @self.app.route("/addtask")
         def addTask():
             self.tasks.append(json.loads(request.args['0']))
-            t = json.loads(request.args['0'])
-            print("[NEW-Task]", request.args['0'])
-            print("[NEW-Task]", t)
             return getTasks()
 
         @self.app.route("/assign")
@@ -228,9 +225,13 @@ class TaskApp():
 
         @self.app.route("/adduserskill")
         def addUserSkill():
+            userskill = json.loads(request.args['0'])
+            print("[ID]", userskill['id'])
+            print("[SKILLS]", userskill['userSkills'])
             for u in self.users:
-                if(u['id'] == request.args['id']):
-                    u['userSkills'].append(request.args['userSkill'])
+                if(u['id'] ==userskill['id']):
+                    for s in userskill['userSkills']:
+                        u['userSkills'].append(s)
                     break
             return getUsers()
 
