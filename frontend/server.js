@@ -1,6 +1,6 @@
 var express = require('express')
 var app     = express();
-var cors = require('cors');
+var cors    = require('cors')
 ///app.use(cors);
 app.use(express.static('public'));
 
@@ -23,7 +23,7 @@ app.get('/processors', function (req, res) {
     res.sendfile('./public/manageprocessor.html');
 });
 
-//decision
+// decision
 app.get('/decide', function (req, res) {
     res.sendfile('./public/decision.html');
 });
@@ -36,4 +36,3 @@ app.get('/test', function (req, res) {
     console.log(req.param.length);
     res.json({ "Name": "Debdeep" });
 });
-
